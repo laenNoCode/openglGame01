@@ -1,4 +1,4 @@
-#include "VertexAndIndexBuffer.h"
+#include "VertexAndIndexBuffer.hpp"
 unsigned int VertexAndIndexBuffer::boundVertexBuffer = 0;
 unsigned int VertexAndIndexBuffer::boundIndexBuffer = 0;
 

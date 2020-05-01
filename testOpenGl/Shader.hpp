@@ -1,5 +1,5 @@
 #pragma once
-#include "util.h"
+#include "util.hpp"
 class Shader
 {
 private:
