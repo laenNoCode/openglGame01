@@ -250,6 +250,16 @@ unsigned int * VertexAndIndexBuffer::getIndexesAsCopy()
 	return toRet;
 }
 
+void VertexAndIndexBuffer::reportDataChangedOutside()
+{
+	this->newData = true;
+}
+
+void VertexAndIndexBuffer::reportIndexesChangedOutside()
+{
+	this->newIndexes = true;
+}
+
 
 
 
