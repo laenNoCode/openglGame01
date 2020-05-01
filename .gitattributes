@@ -5,6 +5,7 @@
 *.cpp cpp
 *.h cpp
 *.c cpp
+dependancies/**/* export-ignore
 ###############################################################################
 # Set default behavior for command prompt diff.
 #

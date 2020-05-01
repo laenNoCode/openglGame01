@@ -1,7 +1,7 @@
 #pragma once
-#include "util.h"
-#include "VertexAndIndexBuffer.h"
-#include "Texture.h"
+#include "util.hpp"
+#include "VertexAndIndexBuffer.hpp"
+#include "Texture.hpp"
 class staticTiledMap
 {
 public:

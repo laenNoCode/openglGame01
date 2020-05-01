@@ -1,7 +1,7 @@
 #pragma once
-#include "util.h"
+#include "util.hpp"
 #include <iostream>
-#include "extern/stb_image.h"
+#include "extern/stb_image.hpp"
 class Texture
 {
 private:
