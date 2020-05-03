@@ -1,11 +1,13 @@
 #pragma once
 #include <GL/glew.h>
 #include <iostream>
+#include <fstream>
 #define DELETA(x) if(x!=nullptr) {delete[] x;x=nullptr;}
 #define FORI(name, Length,code) {for (int name = 0; name < Length; ++name){code}}
 #ifdef DEBUG
 #define ASSERT(x) if(!(x)) __debugbreak();
 #define GLCall(x) GLClearError();x;ASSERT(!GLShowErrors(__LINE__, __FILE__));
+#define LOGF(name,truc) {std::ofstream out; out.open("log/"+name, std::ios_base::app); out truc }
 static void GLClearError() {
 	GLenum error = glGetError();
 	while (error != GL_NO_ERROR) {

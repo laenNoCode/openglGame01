@@ -1,13 +1,15 @@
-#include "util.h"
-#include "Shader.h"
-#include "Texture.h"
-#include "VertexAndIndexBuffer.h"
+#include "util.hpp"
+#include "Shader.hpp"
+#include "Texture.hpp"
+#include "VertexAndIndexBuffer.hpp"
+#include "staticTiledMap.hpp"
+#include "map.hpp"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <chrono>
 #include <thread>
-#include "extern/stb_image.h"
+#include "extern/stb_image.hpp"
 #define CAP_FPS 75
 
 /*
@@ -104,36 +106,40 @@ int main(void)
 		std::cout << "glew not ok" << std::endl;
 	else
 	{
+		
+		laen::map<Texture> textures;
+		std::cout << glGetString(GL_VERSION) << std::endl;
 		glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 		glfwSetKeyCallback(window, key_callback);
 		glfwSwapInterval(1);
-		std::cout << glGetString(GL_VERSION) << std::endl;
+		
 		int shape[2] = { 2,2 };
-		VertexAndIndexBuffer vaib((int*)shape, 2,(float*) vertices,  16, GL_DYNAMIC_DRAW, (unsigned int*)indexes,6 );
+		staticTiledMap stm("res/maps/map01.map", textures);
+		stm.getCamera()->setWidth(16*5);
+		//
+		stm.getCamera()->setHeight(16 * 5);
+		//VertexAndIndexBuffer vaib((int*)shape, 2,(float*) vertices,  16, GL_DYNAMIC_DRAW, (unsigned int*)indexes,6 );
 		Shader shader(vertexShader, fragmentShader);
 		shader.bindShader();
 		Texture tex("res/texture/avatar.png");
 		Texture tex2("res/texture/alakon.png");
 		/* Loop until the user closes the window */
+		
 		while (!glfwWindowShouldClose(window))
 		{
 			auto time = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 			float actuaTime = time % 300000000;
 			//std::cout << actuaTime << std::endl;
-			if ((time / 1000) % 6 < 3) {
-				tex.bind(0);
-			}
-			else {
-				tex2.bind(0);
-			}
+			
 			shader.Uniform1f("time", actuaTime);
 			shader.Uniform1i("u_texture", 0);
-			
+			stm.getCamera()->setX((time/100)%50);
 			//GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 			/* Render here */
 			GLCall(glClear(GL_COLOR_BUFFER_BIT));
-			vaib.draw();
+			//vaib.draw();
 			/* Swap front and back buffers */
+			stm.draw();
 			glfwSwapBuffers(window);
 
 			/* Poll for and process events */

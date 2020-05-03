@@ -1,15 +1,15 @@
 #include "Texture.hpp"
 
 
-Texture::Texture(const std::string & path)
+Texture::Texture(const std::string & path, const std::string& name)
 {
 	stbi_set_flip_vertically_on_load(1);
-	
+	this->name = name;
 	unsigned char* imageData = stbi_load(path.c_str(), &mWidth, &mHeight, &channelsInFile, 4);
 #ifdef DEBUG
-	std::cout << "loaded file : " << path.c_str()  << "it has normally "<< channelsInFile << "," << mWidth << "," << mHeight << "," << sizeof(imageData) << std::endl;
+	std::cout << "loaded file : " << path.c_str()  << " it has normally "<< channelsInFile << "," << mWidth << "," << mHeight << "," << sizeof(imageData) << std::endl;
 #endif // DEBUG
-	GLCall(glGenTextures(1, &m_id));
+	GLCall(glGenTextures(1, &(this->m_id)));
 	GLCall(glBindTexture(GL_TEXTURE_2D, m_id));
 	GLCall(glActiveTexture(GL_TEXTURE0));
 	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST));
@@ -35,6 +35,16 @@ void Texture::bind(int slot)
 #endif // DEBUG
 
 	}
+}
+
+int Texture::getWidth()
+{
+	return this ->mWidth;
+}
+
+int Texture::getHeight()
+{
+	return this->mHeight;
 }
 
 Texture::~Texture()

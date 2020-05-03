@@ -1,14 +1,23 @@
 #include "VertexAndIndexBuffer.hpp"
 unsigned int VertexAndIndexBuffer::boundVertexBuffer = 0;
 unsigned int VertexAndIndexBuffer::boundIndexBuffer = 0;
-
+void dumpAll(float* f, int size, std::string name) {
+	std::ofstream out; out.open("log/"+name); 
+	out << std::endl <<"NEW DATA" << std::endl;
+	FORI(i, size,
+		out << f[i] << ", ";
+	if (i % 4 == 3)
+		out << std::endl;
+	)
+		out.close();
+}
 void VertexAndIndexBuffer::actualizeBuffers()
 {
 	if (vertexBufferID == 0 && newData)
 		GenerateBuffers();
 	if (vertexBufferID != 0 && newData) {
 #ifdef DEBUG 
-		std::cout << "setting data to bufferV n°" << this->vertexBufferID << std::endl;
+		std::cout << "setting data to bufferV n°" << this->vertexBufferID  << "has " << dataLength/16 <<"verticies"<< std::endl;
 #endif
 		GLCall(glBindBuffer(GL_ARRAY_BUFFER, this->vertexBufferID));
 		GLCall(glBufferData(GL_ARRAY_BUFFER, this->dataLength * sizeof(float), this->data, GL_DYNAMIC_DRAW));
@@ -32,7 +41,10 @@ void VertexAndIndexBuffer::GenerateBuffers()
 		std::cout << "generated bufferV n°" << (this->vertexBufferID) << std::endl;
 #endif
 		GLCall(glBindBuffer(GL_ARRAY_BUFFER, this->vertexBufferID));
+		std::cout << "bud" << std::endl;
 		GLCall(glBufferData(GL_ARRAY_BUFFER, this -> dataLength * sizeof(float), this -> data, this->bufferType));
+		std::cout << "bude" << std::endl;
+		dumpAll(this->data, dataLength, "Vd.txt");
 		boundVertexBuffer = this->vertexBufferID;
 		newData = false;
 	}
@@ -110,12 +122,6 @@ void VertexAndIndexBuffer::setData(float* data, int dataLength)
 				this->newData = true;
 			}
 			)
-			
-#ifdef DEBUG
-			if (test) {
-				std::cout << "nothing changed" << std::endl;
-			}
-#endif // DEBUG
 
 			return;
 	}
@@ -269,6 +275,7 @@ VertexAndIndexBuffer::VertexAndIndexBuffer(int* shape, int shapeLength, float* d
 	FORI(i, shapeLength, sum += shape[i];)
 	this->attribTotalSize = sum;
 	this->shape = new unsigned int[shapeLength];
+	std::cout << dataLength << " truc " << shapeLength << " " << indexesLength << std::endl;
 	this->data = new float[dataLength];
 	this->shapeLength = shapeLength;
 	this->dataLength = dataLength;

@@ -135,20 +135,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="camera2D.cpp" />
     <ClCompile Include="extern\stb_image.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="staticTile.cpp" />
     <ClCompile Include="staticTiledMap.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="tileTexture.cpp" />
     <ClCompile Include="VertexAndIndexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="extern\stb_image.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="staticTiledMap.h" />
-    <ClInclude Include="Texture.h" />
-    <ClInclude Include="util.h" />
-    <ClInclude Include="VertexAndIndexBuffer.h" />
+    <ClInclude Include="camera2D.hpp" />
+    <ClInclude Include="extern\stb_image.hpp" />
+    <ClInclude Include="map.hpp" />
+    <ClInclude Include="Shader.hpp" />
+    <ClInclude Include="staticTile.hpp" />
+    <ClInclude Include="staticTiledMap.hpp" />
+    <ClInclude Include="Texture.hpp" />
+    <ClInclude Include="tileTexture.hpp" />
+    <ClInclude Include="util.hpp" />
+    <ClInclude Include="VertexAndIndexBuffer.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\fragment\fragment01.glsl" />
